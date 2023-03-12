@@ -5,25 +5,27 @@ const refs = {
   textarea : document.querySelector('.feedback-form textarea'),
 }
 const formData = {};
-const KEY = 'feedback-form-state'
+const STORAGE_KEY = 'feedback-form-state'
 helloInput();
 
 refs.form.addEventListener('submit', onFormSubmit);
-refs.form.addEventListener('input',throttle((e) => {
+refs.form.addEventListener('input', throttle((e) => {
 
-    formData[e.target.name] = e.target.value;
-    localStorage.setItem(KEY, JSON.stringify(formData))
-}, 500));
+  formData[e.target.name] = e.target.value;
+  console.log(formData);
+  const formDataJSON = JSON.stringify(formData);
+  console.log(formDataJSON);
+  localStorage.setItem(STORAGE_KEY, formDataJSON)}, 500));
 
 function onFormSubmit(e) {
     e.preventDefault();
     e.currentTarget.reset();
     console.log(formData);
-    localStorage.removeItem(KEY);
+    localStorage.removeItem(STORAGE_KEY);
 }
 
 function helloInput(e) {
- const saveText =JSON.parse(localStorage.getItem(KEY))
-  if (saveText) { formData.email = saveText.email ||'' , formData.message = saveText.message ||''}
+ const saveText = JSON.parse(localStorage.getItem(STORAGE_KEY))
+  if (saveText) { formData.email = saveText.email || '' , formData.message = saveText.message || ''}
    
 }
