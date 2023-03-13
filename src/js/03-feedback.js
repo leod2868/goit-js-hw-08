@@ -12,9 +12,7 @@ refs.form.addEventListener('submit', onFormSubmit);
 refs.form.addEventListener('input', throttle((e) => {
 
   formData[e.target.name] = e.target.value;
-  console.log(formData);
   const formDataJSON = JSON.stringify(formData);
-  console.log(formDataJSON);
   localStorage.setItem(STORAGE_KEY, formDataJSON)}, 500));
 
 function onFormSubmit(e) {
@@ -26,6 +24,6 @@ function onFormSubmit(e) {
 
 function helloInput(e) {
  const saveText = JSON.parse(localStorage.getItem(STORAGE_KEY))
-  if (saveText) { formData.email = saveText.email || '' , formData.message = saveText.message || ''}
+  if (saveText) { refs.input.value = saveText.email || '' , refs.textarea.value = saveText.message || ''}
    
 }
